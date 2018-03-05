@@ -1,0 +1,685 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="WgsnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Attribute_Inflow">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="BatchDate" Type="date" />
+          <Property Name="Dept_Market" Type="int" />
+          <Property Name="Region" Type="varchar" MaxLength="300" />
+          <Property Name="Category" Type="int" />
+          <Property Name="SubCategory" Type="int" />
+          <Property Name="Brands" Type="int" />
+          <Property Name="Prints" Type="int" />
+          <Property Name="Materials" Type="int" />
+          <Property Name="Colors/Size" Type="int" />
+          <Property Name="ReadyToPost" Type="int" />
+          <Property Name="Live" Type="int" />
+        </EntityType>
+        <EntityType Name="Pip_MasterDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="Retailer" Type="varchar" MaxLength="300" />
+          <Property Name="Market/Dept" Type="int" />
+          <Property Name="Category" Type="int" />
+          <Property Name="SubCategory" Type="int" />
+          <Property Name="Taxonomy" Type="int" />
+          <Property Name="Brands" Type="int" />
+          <Property Name="Materials" Type="int" />
+          <Property Name="P&amp;G" Type="int" />
+          <Property Name="Colors" Type="int" />
+          <Property Name="Sizes" Type="int" />
+          <Property Name="OOS" Type="int" />
+          <Property Name="Total" Type="int" />
+          <Property Name="StartTime" Type="varchar" MaxLength="300" />
+          <Property Name="EndTime" Type="varchar" MaxLength="300" />
+          <Property Name="Duriation" Type="varchar" MaxLength="300" />
+          <Property Name="Analyst" Type="varchar" MaxLength="300" />
+          <Property Name="Remarks" Type="varchar" MaxLength="300" />
+          <Property Name="BatchDate" Type="date" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="Deleted" Type="bit" />
+          <Property Name="region" Type="int" />
+        </EntityType>
+        <EntityType Name="region_list">
+          <Key>
+            <PropertyRef Name="region_id" />
+          </Key>
+          <Property Name="region_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="region_name" Type="varchar" MaxLength="100" />
+          <Property Name="region_code" Type="varchar" MaxLength="100" />
+          <Property Name="region_active" Type="bit" />
+          <Property Name="region_delfalg" Type="bit" />
+          <Property Name="create_date" Type="datetime" />
+          <Property Name="CUId" Type="int" />
+          <Property Name="modified_date" Type="datetime" />
+          <Property Name="MUId" Type="int" />
+        </EntityType>
+        <EntityType Name="user_master">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="employee_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="employee_id" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="role_id" Type="int" Nullable="false" />
+          <Property Name="user_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="user_password" Type="varchar(max)" Nullable="false" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
+          <Property Name="is_delete" Type="bit" Nullable="false" />
+          <Property Name="created_user" Type="int" />
+          <Property Name="created_date" Type="datetime" />
+          <Property Name="modified_user" Type="int" />
+          <Property Name="modified_date" Type="datetime" />
+        </EntityType>
+        <Function Name="Get_Attribute_Inflow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="currentDate" Type="date" Mode="In" />
+          <Parameter Name="previousDate" Type="date" Mode="In" />
+        </Function>
+        <Function Name="Home_Page_Region_Wise_Report" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CurrentBatchDate" Type="varchar" Mode="In" />
+          <Parameter Name="PreviousBatchDate" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="MRG_Attribute_inflow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="region_value" Type="varchar" Mode="In" />
+          <Parameter Name="attribute" Type="varchar(max)" Mode="In" />
+          <Parameter Name="from_date" Type="varchar" Mode="In" />
+          <Parameter Name="To_date" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="MRG_Regionlist" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="region_active" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MRG_User" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ViewType" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MRS_RegionList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="region_id" Type="int" Mode="In" />
+          <Parameter Name="region_name" Type="varchar" Mode="In" />
+          <Parameter Name="region_Code" Type="varchar" Mode="In" />
+          <Parameter Name="is_active" Type="bit" Mode="In" />
+          <Parameter Name="is_delete" Type="bit" Mode="In" />
+          <Parameter Name="user_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MRS_User" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="user_id" Type="int" Mode="In" />
+          <Parameter Name="employee_name" Type="varchar" Mode="In" />
+          <Parameter Name="employee_id" Type="varchar" Mode="In" />
+          <Parameter Name="role_id" Type="int" Mode="In" />
+          <Parameter Name="user_name" Type="varchar" Mode="In" />
+          <Parameter Name="user_password" Type="varchar(max)" Mode="In" />
+          <Parameter Name="is_active" Type="bit" Mode="In" />
+          <Parameter Name="is_delete" Type="bit" Mode="In" />
+          <Parameter Name="uid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MRS_UserChangePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="user_id" Type="int" Mode="In" />
+          <Parameter Name="user_password" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="Save_Pip_MasterDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CreatedDate" Type="date" Mode="In" />
+          <Parameter Name="BatchDate" Type="date" Mode="In" />
+          <Parameter Name="Dept_Market" Type="varchar" Mode="In" />
+          <Parameter Name="Region" Type="varchar" Mode="In" />
+          <Parameter Name="Category" Type="int" Mode="In" />
+          <Parameter Name="SubCategory" Type="int" Mode="In" />
+          <Parameter Name="Brands" Type="int" Mode="In" />
+          <Parameter Name="Prints" Type="int" Mode="In" />
+          <Parameter Name="Materials" Type="int" Mode="In" />
+          <Parameter Name="Colors" Type="int" Mode="In" />
+          <Parameter Name="ReadyToPost" Type="int" Mode="In" />
+          <Parameter Name="Live" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Sp_getmaster_details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CreatedDate" Type="varchar" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Sp_UserTagged_Products" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FromDate" Type="varchar" Mode="In" />
+          <Parameter Name="To" Type="varchar" Mode="In" />
+          <Parameter Name="UserId" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="Sp_UsertaggedExport_products" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FromDate" Type="varchar" Mode="In" />
+          <Parameter Name="To" Type="varchar" Mode="In" />
+          <Parameter Name="UserId" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SplitString" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Input" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Character" Type="char" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Item" Type="nvarchar" MaxLength="1000" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="usp_RegionwiseReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CurrentBatchDate" Type="varchar" Mode="In" />
+          <Parameter Name="PreviousBatchDate" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="WgsnModelStoreContainer">
+          <EntitySet Name="Attribute_Inflow" EntityType="Self.Attribute_Inflow" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pip_MasterDetails" EntityType="Self.Pip_MasterDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="region_list" EntityType="Self.region_list" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_master" EntityType="Self.user_master" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WgsnModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="SplitString_Result">
+          <Property Name="Item" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </ComplexType>
+        <EntityType Name="Attribute_Inflow">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="BatchDate" Type="DateTime" Precision="0" />
+          <Property Name="Dept_Market" Type="Int32" />
+          <Property Name="Region" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Category" Type="Int32" />
+          <Property Name="SubCategory" Type="Int32" />
+          <Property Name="Brands" Type="Int32" />
+          <Property Name="Prints" Type="Int32" />
+          <Property Name="Materials" Type="Int32" />
+          <Property Name="Colors_Size" Type="Int32" />
+          <Property Name="ReadyToPost" Type="Int32" />
+          <Property Name="Live" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Pip_MasterDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="Retailer" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Market_Dept" Type="Int32" />
+          <Property Name="Category" Type="Int32" />
+          <Property Name="SubCategory" Type="Int32" />
+          <Property Name="Taxonomy" Type="Int32" />
+          <Property Name="Brands" Type="Int32" />
+          <Property Name="Materials" Type="Int32" />
+          <Property Name="P_G" Type="Int32" />
+          <Property Name="Colors" Type="Int32" />
+          <Property Name="Sizes" Type="Int32" />
+          <Property Name="OOS" Type="Int32" />
+          <Property Name="Total" Type="Int32" />
+          <Property Name="StartTime" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="EndTime" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Duriation" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Analyst" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="BatchDate" Type="DateTime" Precision="0" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Deleted" Type="Boolean" />
+          <Property Name="region" Type="Int32" />
+        </EntityType>
+        <EntityType Name="region_list">
+          <Key>
+            <PropertyRef Name="region_id" />
+          </Key>
+          <Property Name="region_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="region_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="region_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="region_active" Type="Boolean" />
+          <Property Name="region_delfalg" Type="Boolean" />
+          <Property Name="create_date" Type="DateTime" Precision="3" />
+          <Property Name="CUId" Type="Int32" />
+          <Property Name="modified_date" Type="DateTime" Precision="3" />
+          <Property Name="MUId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="user_master">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="employee_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="employee_id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="role_id" Type="Int32" Nullable="false" />
+          <Property Name="user_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="is_delete" Type="Boolean" Nullable="false" />
+          <Property Name="created_user" Type="Int32" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="modified_user" Type="Int32" />
+          <Property Name="modified_date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="WgsnEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Attribute_Inflow" EntityType="Self.Attribute_Inflow" />
+          <EntitySet Name="Pip_MasterDetails" EntityType="Self.Pip_MasterDetails" />
+          <EntitySet Name="region_list" EntityType="Self.region_list" />
+          <EntitySet Name="user_master" EntityType="Self.user_master" />
+          <FunctionImport Name="SplitString" IsComposable="true" ReturnType="Collection(WgsnModel.SplitString_Result)">
+            <Parameter Name="Input" Mode="In" Type="String" />
+            <Parameter Name="Character" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Get_Attribute_Inflow" ReturnType="Collection(WgsnModel.Get_Attribute_Inflow_Result)">
+            <Parameter Name="currentDate" Mode="In" Type="DateTime" />
+            <Parameter Name="previousDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="Home_Page_Region_Wise_Report">
+            <Parameter Name="CurrentBatchDate" Mode="In" Type="String" />
+            <Parameter Name="PreviousBatchDate" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="MRG_Attribute_inflow" ReturnType="Collection(WgsnModel.MRG_Attribute_inflow_Result)">
+            <Parameter Name="region_value" Mode="In" Type="String" />
+            <Parameter Name="attribute" Mode="In" Type="String" />
+            <Parameter Name="from_date" Mode="In" Type="String" />
+            <Parameter Name="To_date" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="MRG_Regionlist" ReturnType="Collection(WgsnModel.MRG_Regionlist_Result)">
+            <Parameter Name="region_active" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MRG_User" ReturnType="Collection(WgsnModel.MRG_User_Result)">
+            <Parameter Name="ViewType" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MRS_RegionList" ReturnType="Collection(WgsnModel.MRS_RegionList_Result)">
+            <Parameter Name="region_id" Mode="In" Type="Int32" />
+            <Parameter Name="region_name" Mode="In" Type="String" />
+            <Parameter Name="region_Code" Mode="In" Type="String" />
+            <Parameter Name="is_active" Mode="In" Type="Boolean" />
+            <Parameter Name="is_delete" Mode="In" Type="Boolean" />
+            <Parameter Name="user_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MRS_User" ReturnType="Collection(WgsnModel.MRS_User_Result)">
+            <Parameter Name="user_id" Mode="In" Type="Int32" />
+            <Parameter Name="employee_name" Mode="In" Type="String" />
+            <Parameter Name="employee_id" Mode="In" Type="String" />
+            <Parameter Name="role_id" Mode="In" Type="Int32" />
+            <Parameter Name="user_name" Mode="In" Type="String" />
+            <Parameter Name="user_password" Mode="In" Type="String" />
+            <Parameter Name="is_active" Mode="In" Type="Boolean" />
+            <Parameter Name="is_delete" Mode="In" Type="Boolean" />
+            <Parameter Name="uid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MRS_UserChangePassword" ReturnType="Collection(WgsnModel.MRS_UserChangePassword_Result)">
+            <Parameter Name="user_id" Mode="In" Type="Int32" />
+            <Parameter Name="user_password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Save_Pip_MasterDetails">
+            <Parameter Name="CreatedDate" Mode="In" Type="DateTime" />
+            <Parameter Name="BatchDate" Mode="In" Type="DateTime" />
+            <Parameter Name="Dept_Market" Mode="In" Type="String" />
+            <Parameter Name="Region" Mode="In" Type="String" />
+            <Parameter Name="Category" Mode="In" Type="Int32" />
+            <Parameter Name="SubCategory" Mode="In" Type="Int32" />
+            <Parameter Name="Brands" Mode="In" Type="Int32" />
+            <Parameter Name="Prints" Mode="In" Type="Int32" />
+            <Parameter Name="Materials" Mode="In" Type="Int32" />
+            <Parameter Name="Colors" Mode="In" Type="Int32" />
+            <Parameter Name="ReadyToPost" Mode="In" Type="Int32" />
+            <Parameter Name="Live" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Sp_getmaster_details" ReturnType="Collection(WgsnModel.Sp_getmaster_details_Result)">
+            <Parameter Name="CreatedDate" Mode="In" Type="String" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Sp_UserTagged_Products" ReturnType="Collection(WgsnModel.Sp_UserTagged_Products_Result)">
+            <Parameter Name="FromDate" Mode="In" Type="String" />
+            <Parameter Name="To" Mode="In" Type="String" />
+            <Parameter Name="UserId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Sp_UsertaggedExport_products" ReturnType="Collection(WgsnModel.Sp_UsertaggedExport_products_Result)">
+            <Parameter Name="FromDate" Mode="In" Type="String" />
+            <Parameter Name="To" Mode="In" Type="String" />
+            <Parameter Name="UserId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_RegionwiseReport">
+            <Parameter Name="CurrentBatchDate" Mode="In" Type="String" />
+            <Parameter Name="PreviousBatchDate" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="Get_Attribute_Inflow_Result">
+          <Property Type="String" Name="Region" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="BatchDate" Nullable="true" />
+          <Property Type="Int32" Name="Dept_Market" Nullable="false" />
+          <Property Type="Int32" Name="Category" Nullable="false" />
+          <Property Type="Int32" Name="SubCategory" Nullable="false" />
+          <Property Type="Int32" Name="Brands" Nullable="false" />
+          <Property Type="Int32" Name="Prints" Nullable="false" />
+          <Property Type="Int32" Name="Materials" Nullable="false" />
+          <Property Type="Int32" Name="Colors_Size" Nullable="false" />
+          <Property Type="Int32" Name="ReadyToPost" Nullable="false" />
+          <Property Type="Int32" Name="Live" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="MRG_Attribute_inflow_Result">
+          <Property Type="String" Name="BatchDate" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="Countvalue" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="MRG_Regionlist_Result">
+          <Property Type="Int32" Name="region_id" Nullable="false" />
+          <Property Type="String" Name="region_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="region_code" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="region_active" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="MRG_User_Result">
+          <Property Type="Int32" Name="user_id" Nullable="false" />
+          <Property Type="String" Name="employee_name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="employee_id" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="role_id" Nullable="false" />
+          <Property Type="String" Name="role_name" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="user_name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="user_password" Nullable="false" />
+          <Property Type="Boolean" Name="is_active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="MRS_RegionList_Result">
+          <Property Type="String" Name="Message" Nullable="true" />
+          <Property Type="Boolean" Name="Clear" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="MRS_User_Result">
+          <Property Type="String" Name="Message" Nullable="true" />
+          <Property Type="Boolean" Name="Clear" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="MRS_UserChangePassword_Result">
+          <Property Type="String" Name="Message" Nullable="true" />
+          <Property Type="Boolean" Name="Clear" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Sp_getmaster_details_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" />
+          <Property Type="String" Name="Retailer" Nullable="true" MaxLength="300" />
+          <Property Type="Int32" Name="Market_Dept" Nullable="true" />
+          <Property Type="Int32" Name="Category" Nullable="true" />
+          <Property Type="Int32" Name="SubCategory" Nullable="true" />
+          <Property Type="Int32" Name="Taxonomy" Nullable="true" />
+          <Property Type="Int32" Name="Brands" Nullable="true" />
+          <Property Type="Int32" Name="Materials" Nullable="true" />
+          <Property Type="Int32" Name="P_G" Nullable="true" />
+          <Property Type="Int32" Name="Colors" Nullable="true" />
+          <Property Type="Int32" Name="Sizes" Nullable="true" />
+          <Property Type="Int32" Name="OOS" Nullable="true" />
+          <Property Type="Int32" Name="Total" Nullable="true" />
+          <Property Type="String" Name="StartTime" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="EndTime" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="Duriation" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="Analyst" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="Remarks" Nullable="true" MaxLength="300" />
+          <Property Type="DateTime" Name="BatchDate" Nullable="true" />
+          <Property Type="Int32" Name="UserId" Nullable="true" />
+          <Property Type="Boolean" Name="Deleted" Nullable="true" />
+          <Property Type="Int32" Name="region" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Sp_UserTagged_Products_Result">
+          <Property Type="String" Name="CreatedDate" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="NoofRetailer" Nullable="true" />
+          <Property Type="Int32" Name="TaxonomyTagged" Nullable="true" />
+          <Property Type="Int32" Name="EntitiesTagged" Nullable="true" />
+          <Property Type="Int32" Name="Outofscope" Nullable="true" />
+          <Property Type="Int32" Name="TotalTaggingCount" Nullable="true" />
+          <Property Type="Int32" Name="TotalOOs" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Sp_UsertaggedExport_products_Result">
+          <Property Type="String" Name="CreatedDate" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Analyst" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="NoofRetailer" Nullable="true" />
+          <Property Type="Int32" Name="TaxonomyTagged" Nullable="true" />
+          <Property Type="Int32" Name="EntitiesTagged" Nullable="true" />
+          <Property Type="Int32" Name="Outofscope" Nullable="true" />
+          <Property Type="Int32" Name="TotalTaggingCount" Nullable="true" />
+          <Property Type="Int32" Name="TotalOOs" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WgsnModelStoreContainer" CdmEntityContainer="WgsnEntities">
+          <EntitySetMapping Name="Attribute_Inflow">
+            <EntityTypeMapping TypeName="WgsnModel.Attribute_Inflow">
+              <MappingFragment StoreEntitySet="Attribute_Inflow">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="BatchDate" ColumnName="BatchDate" />
+                <ScalarProperty Name="Dept_Market" ColumnName="Dept_Market" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="SubCategory" ColumnName="SubCategory" />
+                <ScalarProperty Name="Brands" ColumnName="Brands" />
+                <ScalarProperty Name="Prints" ColumnName="Prints" />
+                <ScalarProperty Name="Materials" ColumnName="Materials" />
+                <ScalarProperty Name="Colors_Size" ColumnName="Colors/Size" />
+                <ScalarProperty Name="ReadyToPost" ColumnName="ReadyToPost" />
+                <ScalarProperty Name="Live" ColumnName="Live" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pip_MasterDetails">
+            <EntityTypeMapping TypeName="WgsnModel.Pip_MasterDetails">
+              <MappingFragment StoreEntitySet="Pip_MasterDetails">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Retailer" ColumnName="Retailer" />
+                <ScalarProperty Name="Market_Dept" ColumnName="Market/Dept" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="SubCategory" ColumnName="SubCategory" />
+                <ScalarProperty Name="Taxonomy" ColumnName="Taxonomy" />
+                <ScalarProperty Name="Brands" ColumnName="Brands" />
+                <ScalarProperty Name="Materials" ColumnName="Materials" />
+                <ScalarProperty Name="P_G" ColumnName="P&amp;G" />
+                <ScalarProperty Name="Colors" ColumnName="Colors" />
+                <ScalarProperty Name="Sizes" ColumnName="Sizes" />
+                <ScalarProperty Name="OOS" ColumnName="OOS" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="Duriation" ColumnName="Duriation" />
+                <ScalarProperty Name="Analyst" ColumnName="Analyst" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="BatchDate" ColumnName="BatchDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="region" ColumnName="region" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="region_list">
+            <EntityTypeMapping TypeName="WgsnModel.region_list">
+              <MappingFragment StoreEntitySet="region_list">
+                <ScalarProperty Name="region_id" ColumnName="region_id" />
+                <ScalarProperty Name="region_name" ColumnName="region_name" />
+                <ScalarProperty Name="region_code" ColumnName="region_code" />
+                <ScalarProperty Name="region_active" ColumnName="region_active" />
+                <ScalarProperty Name="region_delfalg" ColumnName="region_delfalg" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="CUId" ColumnName="CUId" />
+                <ScalarProperty Name="modified_date" ColumnName="modified_date" />
+                <ScalarProperty Name="MUId" ColumnName="MUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_master">
+            <EntityTypeMapping TypeName="WgsnModel.user_master">
+              <MappingFragment StoreEntitySet="user_master">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="user_password" ColumnName="user_password" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="is_delete" ColumnName="is_delete" />
+                <ScalarProperty Name="created_user" ColumnName="created_user" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="modified_user" ColumnName="modified_user" />
+                <ScalarProperty Name="modified_date" ColumnName="modified_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="WgsnModel.Store.SplitString" FunctionImportName="SplitString">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WgsnModel.SplitString_Result">
+                <ScalarProperty Name="Item" ColumnName="Item" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_Attribute_Inflow" FunctionName="WgsnModel.Store.Get_Attribute_Inflow">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WgsnModel.Get_Attribute_Inflow_Result">
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="BatchDate" ColumnName="BatchDate" />
+                <ScalarProperty Name="Dept_Market" ColumnName="Dept_Market" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="SubCategory" ColumnName="SubCategory" />
+                <ScalarProperty Name="Brands" ColumnName="Brands" />
+                <ScalarProperty Name="Prints" ColumnName="Prints" />
+                <ScalarProperty Name="Materials" ColumnName="Materials" />
+                <ScalarProperty Name="Colors_Size" ColumnName="Colors/Size" />
+                <ScalarProperty Name="ReadyToPost" ColumnName="ReadyToPost" />
+                <ScalarProperty Name="Live" ColumnName="Live" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Home_Page_Region_Wise_Report" FunctionName="WgsnModel.Store.Home_Page_Region_Wise_Report" />
+          <FunctionImportMapping FunctionImportName="MRG_Attribute_inflow" FunctionName="WgsnModel.Store.MRG_Attribute_inflow">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WgsnModel.MRG_Attribute_inflow_Result">
+                <ScalarProperty Name="BatchDate" ColumnName="BatchDate" />
+                <ScalarProperty Name="Countvalue" ColumnName="Countvalue" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MRG_Regionlist" FunctionName="WgsnModel.Store.MRG_Regionlist">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WgsnModel.MRG_Regionlist_Result">
+                <ScalarProperty Name="region_id" ColumnName="region_id" />
+                <ScalarProperty Name="region_name" ColumnName="region_name" />
+                <ScalarProperty Name="region_code" ColumnName="region_code" />
+                <ScalarProperty Name="region_active" ColumnName="region_active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MRG_User" FunctionName="WgsnModel.Store.MRG_User">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WgsnModel.MRG_User_Result">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="user_password" ColumnName="user_password" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MRS_RegionList" FunctionName="WgsnModel.Store.MRS_RegionList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WgsnModel.MRS_RegionList_Result">
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Clear" ColumnName="Clear" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MRS_User" FunctionName="WgsnModel.Store.MRS_User">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WgsnModel.MRS_User_Result">
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Clear" ColumnName="Clear" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MRS_UserChangePassword" FunctionName="WgsnModel.Store.MRS_UserChangePassword">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WgsnModel.MRS_UserChangePassword_Result">
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Clear" ColumnName="Clear" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Save_Pip_MasterDetails" FunctionName="WgsnModel.Store.Save_Pip_MasterDetails" />
+          <FunctionImportMapping FunctionImportName="Sp_getmaster_details" FunctionName="WgsnModel.Store.Sp_getmaster_details">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WgsnModel.Sp_getmaster_details_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Retailer" ColumnName="Retailer" />
+                <ScalarProperty Name="Market_Dept" ColumnName="Market/Dept" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="SubCategory" ColumnName="SubCategory" />
+                <ScalarProperty Name="Taxonomy" ColumnName="Taxonomy" />
+                <ScalarProperty Name="Brands" ColumnName="Brands" />
+                <ScalarProperty Name="Materials" ColumnName="Materials" />
+                <ScalarProperty Name="P_G" ColumnName="P&amp;G" />
+                <ScalarProperty Name="Colors" ColumnName="Colors" />
+                <ScalarProperty Name="Sizes" ColumnName="Sizes" />
+                <ScalarProperty Name="OOS" ColumnName="OOS" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="Duriation" ColumnName="Duriation" />
+                <ScalarProperty Name="Analyst" ColumnName="Analyst" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="BatchDate" ColumnName="BatchDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="region" ColumnName="region" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Sp_UserTagged_Products" FunctionName="WgsnModel.Store.Sp_UserTagged_Products">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WgsnModel.Sp_UserTagged_Products_Result">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="NoofRetailer" ColumnName="NoofRetailer" />
+                <ScalarProperty Name="TaxonomyTagged" ColumnName="TaxonomyTagged" />
+                <ScalarProperty Name="EntitiesTagged" ColumnName="EntitiesTagged" />
+                <ScalarProperty Name="Outofscope" ColumnName="Outofscope" />
+                <ScalarProperty Name="TotalTaggingCount" ColumnName="TotalTaggingCount" />
+                <ScalarProperty Name="TotalOOs" ColumnName="TotalOOs" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Sp_UsertaggedExport_products" FunctionName="WgsnModel.Store.Sp_UsertaggedExport_products">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WgsnModel.Sp_UsertaggedExport_products_Result">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Analyst" ColumnName="Analyst" />
+                <ScalarProperty Name="NoofRetailer" ColumnName="NoofRetailer" />
+                <ScalarProperty Name="TaxonomyTagged" ColumnName="TaxonomyTagged" />
+                <ScalarProperty Name="EntitiesTagged" ColumnName="EntitiesTagged" />
+                <ScalarProperty Name="Outofscope" ColumnName="Outofscope" />
+                <ScalarProperty Name="TotalTaggingCount" ColumnName="TotalTaggingCount" />
+                <ScalarProperty Name="TotalOOs" ColumnName="TotalOOs" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_RegionwiseReport" FunctionName="WgsnModel.Store.usp_RegionwiseReport" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
